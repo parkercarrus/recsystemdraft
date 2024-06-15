@@ -1,9 +1,61 @@
 # recsystemdraft
-Draft for run specialty recommendation system
+Draft for Run Specialty Recommendation System
 
-Code flow:
+## Code Flow
 
-<strong> app.py --> </strong> initializes local web page <br>
-<strong> import logic --> </strong> this custom module contains all of the thinking/machinelearning/recommendation system
-<strong> logic.get --> </strong> this returns a list of all customer data, which includes product recommendations. <br> 
-<strong> logic.postprocess --> </strong> this appends relevant customer data to a local csv file for later processing <br> <br> (in deployment, there would be a separate function to go through and evaluate the accuracy of the model's predictions throughout the sales day) 
+**app.py**  
+Initializes local web page
+
+**import logic**  
+This custom module contains all of the thinking/machine learning/recommendation system logic.
+
+**logic.get**  
+This returns a list of all customer data, which includes product recommendations.
+
+**logic.postprocess**  
+This appends relevant customer data to a local CSV file for later processing.  
+(In deployment, there would be a separate function to go through and evaluate the accuracy of the model's predictions throughout the sales day.)
+
+## Example Dictionary
+
+`logic.get(name)` will return a dictionary with this format:
+
+<pre style="font-size: 12px;">
+{
+  'customer_id': '31404eab-b254-42c3-a9d0-d262caa9053d',
+  'name': 'Parker Carrus',
+  'email': 'holson@example.org',
+  'phone': '(947)498-5440x5837',
+  'address': '6982 Hunter Dale Apt. 700\nEast Mariaburgh, NJ 81337',
+  'loyalty_points': 499,
+  'discount': 'Student-Athlete',
+  'insole': False,
+  'mailing_list': False,
+  'gender': 'Male',
+  'shoe_size': 10.5,
+  'credit_card': 'Visa',
+  'preferred_category': 'neutral',
+  'returner': True,
+  'avg_time_between_purchases': 244.5,
+  'purchase_history': [
+    ['Pegasus 36', '2021-09-16', 140, 'purchase'],
+    ['Cloudflow 4', '2024-11-01', 160, 'purchase'],
+    ['860 10', '2020-11-10', -160, 'return'],
+    ['860 10', '2020-10-26', 160, 'purchase'],
+    ['860 12', '2022-11-13', 160, 'purchase'],
+    ['Structure 23', '2023-06-16', 160, 'purchase'],
+    ['1080 12', '2022-08-22', 160, 'purchase']
+  ],
+  'recommendations': [
+    ('860 10', 1.3551160203240848),
+    ('1080 12', 0.6159133643628538),
+    ('Cumulus 23', 0.5036489610292063),
+    ...
+    ('Clifton 8', -0.1090382895739079),
+    ('Kayano 28', -0.15897206777334807),
+    ('Kayano 29', -0.17691815889969578),
+    ('Nimbus 22', -0.1798296917238732),
+    ('Clifton 7', -0.20694285944526816)
+  ]
+}
+</pre>
