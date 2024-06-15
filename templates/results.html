@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Data</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Customer Data</h1>
+    <div class="container">
+        <div class="flexbox recommendations">
+            <h2>Recommended Products</h2>
+            <table>
+                <tr>
+                    <th>Model</th>
+                    <th>Recommendation Score</th>
+                </tr>
+                {% for prediction, value in data['recommendations'][:10] %}
+                <tr class="{{ 'extra' if loop.index > 3 else '' }}" style="{{ 'display: none;' if loop.index > 3 else 'table-row' }}">
+                    <td>{{ prediction }}</td>
+                    <td class="value {% if (value * 10) < 3.3 %}low{% elif (value * 10) < 6.6 %}medium{% else %}high{% endif %}">
+                        {{ (value * 10)|round(1) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% if data['recommendations']|length > 3 %}
+            <div class="button-container">
+                <button id="viewMoreButton" onclick="toggleViewMore()">View More</button>
+            </div>
+            {% endif %}
+        </div>
+        <div class="flexbox purchase-history">
+            <h2>Purchase History</h2>
+            <table>
+                <tr>
+                    <th>Model</th>
+                    <th>Purchase Date</th>
+                </tr>
+                {% for purchase in data['purchase_history']|sort(attribute='1', reverse=True) %}
+                <tr>
+                    <td>{{ purchase[0] }}</td>
+                    <td>{{ purchase[1] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="flexbox customer-info">
+            <h2>Customer Information</h2>
+            <p><strong>Name:</strong> {{ data['name'] }}</p>
+            <p><strong>Gender:</strong> {{ data['gender'] }}</p>
+            <p><strong>Size:</strong> {{ data['shoe_size'] }}</p>
+            <p><strong>Insole:</strong> {{ data['insole'] }}</p>
+            <p><strong>Discount:</strong> {{ data['discount'] }}</p>
+            <p><strong>Has Returned in the Past:</strong> {{ data['returner'] }}</p>
+        </div>
+        <div class="flexbox metrics">
+            <h2>Metrics</h2>
+            <p><strong>Purchase Likelihood:</strong> {{ range(50, 101) | random }}%</p>
+            <p><strong>Average Time to Purchase:</strong> {{ range(10, 31) | random }} minutes</p>
+        </div>
+    </div>
+    <form action="/">
+        <input type="submit" value="Return Home">
+    </form>
+    <div class="footer">GWC AI Group</div>
+    <script>
+        function toggleViewMore() {
+            var rows = document.getElementsByClassName('extra');
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].style.display = rows[i].style.display === 'table-row' ? 'none' : 'table-row';
+            }
+            var button = document.getElementById('viewMoreButton');
+            button.textContent = button.textContent === 'View More' ? 'View Less' : 'View More';
+        }
+    </script>
+</body>
+</html>
