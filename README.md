@@ -7,7 +7,7 @@ Draft for Run Specialty Recommendation System
 Initializes local web page
 
 **import logic**  
-This custom module contains all of the thinking/machine learning/recommendation system logic.
+This custom module contains all of the thinking/machine learning/recommendation system logic. Basically, when you import logic, it computes the similarity matrix between all of the customers in the dataset. When you call logic.get() it calls predict() which takes the top 'n' most similar users and checks what products they've purchased most recently.
 
 **logic.get**  
 This returns a list of all customer data, which includes product recommendations.
