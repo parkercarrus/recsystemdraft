@@ -12,6 +12,15 @@ import os
 customers_df = pd.read_csv('path_to_customer_data.csv') # replace this with the actual path to csv --> should be /data/customers.csv
 purchase_history_df = pd.read_csv('path_to_purchase_history.csv') # same idea
 
+# generate a list of all unique models in purchase history
+def get_all_models_list():
+    """Returns a list of all the unique models in purchase history"""
+    models = []
+    for model in purchase_history_df['model']:
+        if model not in models:
+            models.append(model)
+    return models
+
 # Function to get purchases for customer
 def purchases(customer_id, history_df):
     return history_df[history_df['customer_id'] == customer_id][['model', 'purchase_date', 'price', 'transaction_type']].values.tolist()
@@ -48,6 +57,7 @@ def time_between_purchases(purchases):
         
 # Function to get customer data
 def get_customer_data(customer_id, customers_df, purchase_history_df):
+    """Returns a dictionary of customer data, without recommendations"""
     customer_info = customers_df[customers_df['customer_id'] == customer_id]
     if customer_info.empty:
         return None
@@ -110,12 +120,14 @@ model_knn.fit(combined_user_features)
 
 # Predict function
 def predict(user_idx, item_idx):
+    """Returns the 'predicted score' for a model based on user_idx and item_idx"""
     user_vector = combined_user_features[user_idx]
     item_vector = combined_item_features[item_idx]
     return np.dot(user_vector, item_vector)
 
 # Rank items for a specific user
-def rank_items_for_user(user_id, interaction_matrix):
+def rank_items_for_user(user_id, interaction_matrix):\
+    """Ranks all models in UNIQUE MODELS by score for user"""
     user_idx = interaction_matrix.index.get_loc(user_id)
     item_scores = []
 
@@ -129,6 +141,7 @@ def rank_items_for_user(user_id, interaction_matrix):
 
 
 def get(name):
+    """Returns all all user data plus recommendations"""
     user_id = get_id(input=name, customers=customers_df)
     data = get_customer_data(user_id, customers_df, purchase_history_df)
     ranked_items = rank_items_for_user(user_id, interaction_matrix)
