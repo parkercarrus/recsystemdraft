@@ -126,7 +126,7 @@ def predict(user_idx, item_idx):
     return np.dot(user_vector, item_vector)
 
 # Rank items for a specific user
-def rank_items_for_user(user_id, interaction_matrix):\
+def rank_items_for_user(user_id, interaction_matrix):
     """Ranks all models in UNIQUE MODELS by score for user"""
     user_idx = interaction_matrix.index.get_loc(user_id)
     item_scores = []
