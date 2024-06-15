@@ -192,3 +192,21 @@ def postprocess(data, csv_file):
     file_exists = os.path.isfile(csv_file)
     combined_df.to_csv(csv_file, mode='a', header=not file_exists, index=False)
 
+def rank_users_by_item(item_idx, customers_df, interaction_matrix):
+    user_scores = []
+
+    # Iterate through each user
+    for user_idx in range(customers_df.shape[0]):
+        score = predict(user_idx=user_idx, item_idx=item_idx)
+        user_scores.append((customers_df.iloc[user_idx]['customer_id'], customers_df.iloc[user_idx]['name'], customers_df.iloc[user_idx]['phone'], customers_df.iloc[user_idx]['email'], score))
+        
+    # Sort users based on the score in descending order
+    ranked_users = sorted(user_scores, key=lambda x: x[4], reverse=True)
+    
+    return ranked_users
+
+def get_user_rankings(item_name, amount_of_users):
+    """Returns a list of length [amount_of_users] where list[0] = customer_id, list[1] = customer_name, list[2] = item_score"""
+    shoe_idx = get_shoe_idx(item_name)
+    ranking_list = rank_users_by_item(shoe_idx, customers_df, interaction_matrix)
+    return ranking_list[0:amount_of_users]
