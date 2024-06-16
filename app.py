@@ -23,7 +23,12 @@ def get_data_route():
 @app.route('/live_search')
 def live_search():
     data = logic.get_all_customers_list()
+    data.sort()
     return render_template('live_search.html', data=data)
+
+@app.route('/create_customer')
+def create_customer():
+    return render_template('create_customer.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

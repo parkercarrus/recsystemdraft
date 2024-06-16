@@ -1,25 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate Sales Data</title>
+    <title>Add New Customer</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Live Search</h1>
-    <form action="/get_data" method="post">
+    <form action="/">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
-        {%for i in data %}
-
-        <div class="customer" style="display: none">{{ i }}</div>
-
-        {%endfor%}
+        <input type="radio" id="gender" name="gender" required>
+        
+        <input type="submit" value="Go">
     </form>
     <div class="footer">GWC AI Group</div>
-    <script type="text/javascript" src="{{ url_for('static', filename='scripts/search.js') }}"></script>
 </body>
 </html>
