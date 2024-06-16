@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rank Customers by Item</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <button onclick="window.location.href='/'" style="position: absolute; top: 10px; left: 10px;">Back</button>
+    <h1>Rank Customers by Item</h1>
+    <form action="/rank_users_results" method="post">
+        <label for="item_name">Shoe Name:</label>
+        <input type="text" id="item_name" name="item_name" required>
+        <label for="amount_of_users">Amount of Customers:</label>
+        <input type="number" id="amount_of_users" name="amount_of_users" required>
+        <input type="submit" value="Rank">
+    </form>
+    <div class="footer">GWC AI Group</div>
+</body>
+</html>
