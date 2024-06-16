@@ -135,7 +135,9 @@ button {
     border-radius: 4px;
     cursor: pointer;
 }
-
+.rank-customers-box {
+    margin-top: 200px; /* Adjust the value to control the amount of whitespace */
+}
 button:hover {
     background-color: rgba(0, 121, 107, 0.2); /* Slightly darker on hover */
 }
