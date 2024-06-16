@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Users for {{ item_name }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="{{ url_for('home') }}" class="back-button">Back</a>
+    <h1>Best Users for {{ item_name }}</h1>
+
+    <form action="/rank_users_results" method="post" style="text-align: center;">
+        <input type="hidden" name="item_name" value="{{ item_name }}">
+        <input type="hidden" name="amount_of_users" value="{{ amount_of_users }}">
+        
+        <label for="gender">Gender:</label>
+        <input type="radio" id="any_gender" name="gender" value="any" checked> Any
+        <input type="radio" id="male" name="gender" value="M"> M
+        <input type="radio" id="female" name="gender" value="F"> F
+
+        <label for="size">Shoe Size:</label>
+        <input type="radio" id="any_size" name="size" value="any" checked> Any
+        <input type="radio" id="size" name="size" value="slider"> 
+        <input type="range" id="slider_size" name="slider_size" min="7" max="12" step="0.5" list="sizes" disabled>
+        <datalist id="sizes">
+            <option value="7">
+            <option value="7.5">
+            <option value="8">
+            <option value="8.5">
+            <option value="9">
+            <option value="9.5">
+            <option value="10">
+            <option value="10.5">
+            <option value="11">
+            <option value="11.5">
+            <option value="12">
+        </datalist>
+
+        <label for="discount">Discount:</label>
+        <input type="radio" id="any_discount" name="discount" value="any" checked> Any
+        <input type="radio" id="medical" name="discount" value="Medical"> Medical
+        <input type="radio" id="student" name="discount" value="Student-Athlete"> Student
+        <input type="radio" id="doctor" name="discount" value="Doctor Referral"> Doctor
+        <input type="radio" id="military" name="discount" value="Military"> Military
+        <input type="radio" id="none" name="discount" value="None"> None
+
+        <input type="submit" value="Filter">
+    </form>
+
+    <form action="/download_csv" method="post" style="text-align: center; margin-top: 10px;">
+        <input type="hidden" name="item_name" value="{{ item_name }}">
+        <input type="hidden" name="amount_of_users" value="{{ amount_of_users }}">
+        <input type="hidden" name="gender" value="{{ gender }}">
+        <input type="hidden" name="size" value="{{ size }}">
+        <input type="hidden" name="slider_size" value="{{ slider_size }}">
+        <input type="hidden" name="discount" value="{{ discount }}">
+        <input type="submit" value="Download CSV">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in data %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>{{ user[3] }}</td>
+                <td>{{ user[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        const sizeRadios = document.getElementsByName('size');
+        const slider = document.getElementById('slider_size');
+
+        sizeRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.value === 'slider') {
+                    slider.disabled = false;
+                } else {
+                    slider.disabled = true;
+                    slider.value = 7; // default value for slider
+                }
+            });
+        });
+    </script>
+</body>
+</html>
