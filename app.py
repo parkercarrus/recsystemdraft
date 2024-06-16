@@ -16,8 +16,12 @@ def home():
 @app.route('/get_data', methods=['POST'])
 def get_data_route():
     name = request.form['name']
-    data = logic.get(name)
-    logic.postprocess(data, '/Users/parkercarrus/Desktop/SRE/T4/app/data/postdata.csv')
+    try:
+        data = logic.get(name)
+    except Exception as e:
+        return render_template('error.html', data={'e': e})
+
+    logic.postprocess(data, 'data/postdata.csv')
 
     return render_template('results.html', data=data)
 
