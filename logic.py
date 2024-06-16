@@ -11,9 +11,9 @@ import os
 
 # read csv files
 try:
-    customers_df = pd.read_csv('path_to_customer_data.csv')  # replace this with the actual path to csv --> should be /data/customers.csv
-    purchase_history_df = pd.read_csv('path_to_purchase_history.csv')  # same idea
-except FileNotFoundError as e:
+    customers_df = pd.read_csv('data/customers.csv')
+    purchase_history_df = pd.read_csv('data/purchase_history.csv')
+except Exception as e:
     print(f"Error: {e}")
     exit()
 
@@ -23,7 +23,7 @@ def get_all_models_list():
 
 # generate a list of all unique customers
 def get_all_customers_list():
-    return purchase_history_df['name'].unique().tolist()
+    return customers_df['name'].unique().tolist()
 
 # function to get purchases for a customer
 def purchases(customer_id, history_df):

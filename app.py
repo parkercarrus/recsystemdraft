@@ -16,14 +16,14 @@ def home():
 @app.route('/get_data', methods=['POST'])
 def get_data_route():
     name = request.form['name']
-    try:
-        data = logic.get(name)
-    except Exception as e:
-        return render_template('error.html', data={'e': e})
-
+    data = logic.get(name)
     logic.postprocess(data, 'data/postdata.csv')
-
     return render_template('results.html', data=data)
+
+@app.route('/live_search')
+def live_search():
+    data = logic.get_all_customers_list()
+    return render_template('live_search.html', data=data)
 
 if __name__ == '__main__':
     app.run(debug=True)
