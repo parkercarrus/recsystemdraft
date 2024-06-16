@@ -160,3 +160,21 @@ def get_user_rankings(item_name, amount_of_users):
 def get_shoe_idx(shoe_name):
     """returns the index of the shoe in the interaction matrix columns"""
     return interaction_matrix.columns.get_loc(shoe_name)
+    
+def filter(data_list, gender, size, discount):
+    filtered_customers = data_list
+
+    if gender and gender != 'any':
+        filtered_customers = [person for person in filtered_customers if get_customer_data(person[0], customers_df, purchase_history_df)['gender'] == gender]
+    
+    if size is not None and size != 'any':
+        try:
+            size = float(size)
+            filtered_customers = [person for person in filtered_customers if get_customer_data(person[0], customers_df, purchase_history_df)['shoe_size'] == size]
+        except ValueError:
+            pass  # Handle any conversion error or inappropriate size input
+    
+    if discount and discount != 'any':
+        filtered_customers = [person for person in filtered_customers if get_customer_data(person[0], customers_df, purchase_history_df)['discount'] == discount]
+    
+    return filtered_customers
