@@ -5,14 +5,22 @@
 ### 1. Refine Likelihood to Purchase Function
 Currently, the likelihood for a customer to purchase an item is generated using a random number between 50 and 100 in the `results_page.html` JavaScript. We need to build a more sophisticated function to accurately calculate and return the likelihood of a customer purchasing a product.
 
-### 2. Refine Average Time to Purchase a Project
+### 2. Refine Average Time to Purchase a Product
 Improve the calculation of the average time it takes for a customer to purchase a product. Refine an algorithm to provide a more accurate and reliable average time to purchase metric.
 
+### 3. Clean up logic modules
+Break up 'logic.py' so that not all of the computation is done in that file. Make it make more sense by creating more files: `helpers.py`, `make_recommendations.py`, `customer_metrics.py`, `postprocessing.py`. This should be put inside a `/logic/` folder. 
+
+
 ## Usage
-[Add usage instructions here]
+```bash
+pip install -r requirements.txt
+python app.py
+```
 
 ## Contributors
-This project is developed and maintained by [Your Name].
+@parkercarrus
+@DivijSasidhar
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
