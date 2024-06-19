@@ -11,6 +11,9 @@ Improve the calculation of the average time it takes for a customer to purchase 
 ### 3. Clean up logic modules
 Break up 'logic.py' so that not all of the computation is done in that file. Make it make more sense by creating more files: `helpers.py`, `make_recommendations.py`, `customer_metrics.py`, `postprocessing.py`. This should be put inside a `/logic/` folder. 
 
+### 4. Sort out deployment
+Heroku computation for internal website tool.
+
 
 ## Usage
 ```bash
