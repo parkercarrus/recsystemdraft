@@ -1,5 +1,22 @@
-# recsystemdraft
-Draft for Run Specialty Recommendation System
+# Run Specialty Recommendation Service
+
+## New Features to Implement
+
+### 1. Refine Likelihood to Purchase Function
+Currently, the likelihood for a customer to purchase an item is generated using a random number between 50 and 100 in the `results_page.html` JavaScript. We need to build a more sophisticated function to accurately calculate and return the likelihood of a customer purchasing a product.
+
+### 2. Refine Average Time to Purchase a Project
+Improve the calculation of the average time it takes for a customer to purchase a product. Refine an algorithm to provide a more accurate and reliable average time to purchase metric.
+
+## Usage
+[Add usage instructions here]
+
+## Contributors
+This project is developed and maintained by [Your Name].
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
 
 ## Code Flow
 
